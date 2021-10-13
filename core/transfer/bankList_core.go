@@ -28,31 +28,40 @@ func (s bankListCore) GetBankList(ctx context.Context) ([]Bank, error) {
 	req := s.sdk.NewHTTPReq(ctx, http.MethodPost, s.sdk.Cfg.BaseURL+"/txn/getInfo/bankList", body)
 	res, err := s.sdk.Hc.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("listAccountByCIF: http.Do: %v", err)
+		return nil, fmt.Errorf("Error: http.Do: %v", err)
 	}
 	defer res.Body.Close()
 
 	info, err := io.ReadAll(res.Body)
 	if err != nil {
-		return nil, fmt.Errorf("listAccountByCIF: read response body: %v", err)
+		return nil, fmt.Errorf("Error: read response body: %v", err)
 	}
 
 	var reply struct {
 		Success  bool   `json:"success"`
 		Message  string `json:"message"`
-		BankList []Bank `json:"data"`
+		BankList []RespBank `json:"data"`
 	}
 
 	if err := json.Unmarshal(info, &reply); err != nil {
-		return nil, fmt.Errorf("listAccountByCIF: unmarshal json: %s", info)
+		return nil, fmt.Errorf("Error: unmarshal json: %s", info)
 	}
 	if !reply.Success || len(reply.BankList) == 0 {
-		return nil, fmt.Errorf("listAccountByCIF: %s", reply.Message)
+		return nil, fmt.Errorf("Error: %s", reply.Message)
 	}
 
 	bankList := reply.BankList
-	fmt.Println(reply.Success)
-	fmt.Println(reply.Message)
+	respoenses := []Bank{}
+	for _, v := range bankList{
+		response := Bank{
+			BankCode: v.BankCode,
+			BankFullName: v.BankFullName,
+			UrlLogo: "",
+		}
+		respoenses = append(respoenses, response)
+	}
+	// fmt.Println(bankList)
+	// fmt.Println(reply.Message)
 
-	return bankList, nil
+	return respoenses, nil
 }

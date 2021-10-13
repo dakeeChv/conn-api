@@ -25,10 +25,6 @@ type Config struct {
 	UserID    string
 	SecretKey string
 
-	// JDB card management system in malaysia
-	CmsURL string
-	CmsZpk string
-
 	// hmacKey is a share key between JDB mobile backend and JDB core baning backend,
 	// used to signed http request signature
 	HMacKey []byte

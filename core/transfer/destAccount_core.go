@@ -99,6 +99,7 @@ func (d destAccountCore) GetDestInfo(ctx context.Context, r ReqDest) (*RespDestA
 		DestAccount: destAccs,
 		SourceAccount: sourceAccs,
 		ExchangeRate: exchangeRates,
+		FeeList: fees,
 	}
 
 	return &response, nil

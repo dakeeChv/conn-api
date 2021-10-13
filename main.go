@@ -23,21 +23,21 @@ func main() {
 		panic(err)
 	}
 
-	// bankList := transfer.NewBankListCore(sdk)
-	destAcc := transfer.NewdestAccCore(sdk)
+	bankList := transfer.NewBankListCore(sdk)
+	// destAcc := transfer.NewdestAccCore(sdk)
 
-	reqBody := transfer.ReqDest{
-		RequestID: "20210922120212456",
-		Type: "P2P",           
-		SourceCustNo: "001063976",    
-		SourceAccountNo: "00120010110008245", 
-		SourceCurrency: "USD",
-		DestBankCode: "JDB",   
-		DestAccountNo: "001082973", 
-		ExReferenceNo: "W92JG1BG4I1J1TH3S2",
-	}
-	// data, err := bankList.GetBankList(ctx)
-	data, err := destAcc.GetDestInfo(ctx, reqBody)
+	// reqBody := transfer.ReqDest{
+	// 	RequestID: "20210922120212456",
+	// 	Type: "P2P",           
+	// 	SourceCustNo: "001063976",    
+	// 	SourceAccountNo: "00120010110008245", 
+	// 	SourceCurrency: "USD",
+	// 	DestBankCode: "JDB",   
+	// 	DestAccountNo: "001082973", 
+	// 	ExReferenceNo: "W92JG1BG4I1J1TH3S2",
+	// }
+	data, err := bankList.GetBankList(ctx)
+	// data, err := destAcc.GetDestInfo(ctx, reqBody)
 	if err != nil {
 		println(err)
 	}

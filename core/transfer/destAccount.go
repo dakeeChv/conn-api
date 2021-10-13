@@ -69,6 +69,7 @@ type RespDestAcc struct {
 	DestAccount   []DestAcc   `json:"destAccount"`
 	SourceAccount []SourceAcc `json:"sourceAccount"`
 	ExchangeRate  []ExchRate  `json:"exchangeRate"`
+	FeeList  	  []Fee		  `json:"fees"`
 }
 
 type CallDest interface {
